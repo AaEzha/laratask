@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewRegistered;
+use App\Models\User;
 use Illuminate\Http\Request;
 use GroceryCrud\Core\GroceryCrud;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends GroceryController
 {
@@ -22,6 +25,51 @@ class AdminController extends GroceryController
         });
         $crud->callbackBeforeUpdate(function($s){
             $s->data['updated_at'] = now();
+            return $s;
+        });
+
+        $output = $crud->render();
+
+        return $this->_showOutput($output);
+    }
+
+    public function users()
+    {
+        $crud = $this->_getGroceryCrudEnterprise();
+
+        $crud->setTable('users');
+        $crud->setSubject('User', 'Users');
+        $crud->columns(['name', 'email', 'role_id']);
+        $crud->fields(['name', 'email', 'password', 'role_id']);
+        $crud->requiredFields(['name', 'email', 'role_id']);
+        $crud->fieldType('password', 'password');
+        $crud->setRelation('role_id', 'roles', 'name');
+        $crud->displayAs([
+            'role_id' => 'Role'
+        ]);
+        $crud->callbackEditField('password', function ($fieldValue, $primaryKeyValue, $rowData) {
+			return '<input name="password" type="password" class="form-control" value=""  />';
+		});
+        $crud->callbackBeforeInsert(function($s){
+            $s->data['created_at'] = now();
+            $s->data['updated_at'] = now();
+            $s->data['password_shadow'] = $s->data['password'];
+            $s->data['password'] = bcrypt($s->data['password']);
+            return $s;
+        });
+        $crud->callbackBeforeUpdate(function($s){
+            $s->data['updated_at'] = now();
+            return $s;
+        });
+        $crud->callbackAfterInsert(function ($s) {
+            $user = User::find($s->insertId);
+
+            Mail::to($user->email)
+                ->queue(new NewRegistered($user));
+
+            $user->password_shadow = null;
+            $user->save();
+
             return $s;
         });
 

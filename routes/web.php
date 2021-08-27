@@ -23,4 +23,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('roles', [AdminController::class, 'roles']);
     Route::post('roles', [AdminController::class, 'roles']);
+    Route::get('users', [AdminController::class, 'users']);
+    Route::post('users', [AdminController::class, 'users']);
 });
