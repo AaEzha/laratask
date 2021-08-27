@@ -115,25 +115,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </a>
                         </li> --}}
-                        @if (Auth::user()->role_id == "1")
-                        <li class="nav-item">
-                            <a href="{{ route('admin.role') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Roles</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.users') }}" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>Users</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.projects') }}" class="nav-link">
-                                <i class="nav-icon fas fa-list"></i>
-                                <p>Projects</p>
-                            </a>
-                        </li>
+                        @if (Auth::user()->role_id == '1')
+                            <li class="nav-item">
+                                <a href="{{ route('admin.role') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p>Roles</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.users') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Users</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.projects') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Projects</p>
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a href="{{ route('admin.projects') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Assigned Tasks</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.projects') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-check"></i>
+                                    <p>Completed Tasks</p>
+                                </a>
+                            </li>
                         @endif
                     </ul>
                 </nav>
