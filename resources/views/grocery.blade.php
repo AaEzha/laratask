@@ -1,11 +1,12 @@
 @extends('adminlte.layouts.app')
 
 @section('content')
+    <div class="content-wrapper">
+        @stack('header')
 
-    @stack('header')
-
-    <div style="padding: 20px">
-        {!! $output !!}
+        <div style="padding: 20px">
+            {!! $output !!}
+        </div>
     </div>
 
 @endsection

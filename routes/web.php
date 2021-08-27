@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('roles', [AdminController::class, 'roles']);
+    Route::post('roles', [AdminController::class, 'roles']);
+});
