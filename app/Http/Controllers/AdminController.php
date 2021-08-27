@@ -162,6 +162,15 @@ class AdminController extends GroceryController
             $form .= "</select>";
             return $form;
         });
+        $crud->callbackEditField('user_id', function ($fieldValue) use ($project) {
+            $form  = "<select name='user_id' class='form-control'>";
+            foreach ($project->users as $user) {
+                $stat = ($fieldValue == $user->id) ? "selected" : "";
+                $form .= "<option value='".$user->id."' $stat>".$user->name."</option>";
+            }
+            $form .= "</select>";
+            return $form;
+        });
         $crud->callbackBeforeInsert(function ($s) use ($project) {
             $s->data['created_at'] = now();
             $s->data['updated_at'] = now();
