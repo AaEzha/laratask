@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'can:admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('roles', [AdminController::class, 'roles'])->name('role');
     Route::post('roles', [AdminController::class, 'roles']);
     Route::get('users', [AdminController::class, 'users'])->name('users');
@@ -34,7 +34,7 @@ Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () 
     Route::post('tasks/{project}', [AdminController::class, 'project_tasks']);
 });
 
-Route::middleware(['auth'])->name('user.')->prefix('user')->group(function () {
+Route::middleware(['auth', 'can:staf'])->name('user.')->prefix('user')->group(function () {
     Route::get('projects', [UserController::class, 'projects'])->name('projects');
     Route::post('projects', [UserController::class, 'projects']);
     Route::get('project/{project}', [UserController::class, 'project'])->name('project');
