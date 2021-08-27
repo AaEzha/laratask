@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +32,10 @@ Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () 
     Route::post('project-members/{project}', [AdminController::class, 'project_members']);
     Route::get('tasks/{project}', [AdminController::class, 'project_tasks'])->name('project_tasks');
     Route::post('tasks/{project}', [AdminController::class, 'project_tasks']);
+});
+
+Route::middleware(['auth'])->name('user.')->prefix('user')->group(function () {
+    Route::get('projects', [UserController::class, 'projects'])->name('projects');
+    Route::post('projects', [UserController::class, 'projects']);
+    Route::get('project/{project}', [UserController::class, 'project'])->name('project');
 });

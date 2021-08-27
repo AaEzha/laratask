@@ -136,6 +136,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </li>
                         @else
                             <li class="nav-item">
+                                <a href="{{ route('user.projects') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-list"></i>
+                                    <p>Projects</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('admin.projects') }}" class="nav-link">
                                     <i class="nav-icon fas fa-list"></i>
                                     <p>Assigned Tasks</p>
