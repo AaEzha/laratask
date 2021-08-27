@@ -24,7 +24,7 @@ Laravel Task Management
 
 ## Login
 - as Administrator : admin@gmail.com
-- as User : user@gmail.com
+- as User : staf@gmail.com
 - password : password
 
 ## Note
