@@ -38,6 +38,30 @@ class UserController extends Controller
         return $this->_showOutput($output);
     }
 
+    public function tasks()
+    {
+        $crud = $this->_getGroceryCrudEnterprise();
+
+        $crud->setTable('project_tasks');
+        $crud->setSubject('Project', 'Assigned Tasks');
+        $crud->unsetOperations();
+        $crud->where(['user_id' => Auth::id()]);
+        $crud->columns(['name', 'project_id', 'due_date']);
+        $crud->setRelation('project_id', 'projects', 'name');
+        $crud->displayAs([
+            'project_id' => 'Project Name'
+        ]);
+        $crud->unsetSearchColumns(['project_id']);
+        $crud->setActionButton('Mark as complete', 'fa fa-check', function ($row) {
+            $project = ProjectMember::find($row->id);
+            return route('user.project', $project->project_id);
+        }, false);
+
+        $output = $crud->render();
+
+        return $this->_showOutput($output);
+    }
+
     public function project(Project $project)
     {
         return view('user.project', compact('project'));

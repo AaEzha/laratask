@@ -38,4 +38,6 @@ Route::middleware(['auth'])->name('user.')->prefix('user')->group(function () {
     Route::get('projects', [UserController::class, 'projects'])->name('projects');
     Route::post('projects', [UserController::class, 'projects']);
     Route::get('project/{project}', [UserController::class, 'project'])->name('project');
+    Route::get('tasks', [UserController::class, 'tasks'])->name('tasks');
+    Route::post('tasks', [UserController::class, 'tasks']);
 });
