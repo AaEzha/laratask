@@ -83,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
+                        {{-- <li class="nav-item menu-open">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
@@ -114,7 +114,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <span class="right badge badge-danger">New</span>
                                 </p>
                             </a>
+                        </li> --}}
+                        @if (Auth::user()->role_id == "1")
+                        <li class="nav-item">
+                            <a href="{{ route('admin.role') }}" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Roles</p>
+                            </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users') }}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.projects') }}" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>Projects</p>
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
