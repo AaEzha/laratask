@@ -20,9 +20,15 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('roles', [AdminController::class, 'roles']);
+Route::middleware(['auth'])->name('admin.')->prefix('admin')->group(function () {
+    Route::get('roles', [AdminController::class, 'roles'])->name('role');
     Route::post('roles', [AdminController::class, 'roles']);
-    Route::get('users', [AdminController::class, 'users']);
+    Route::get('users', [AdminController::class, 'users'])->name('users');
     Route::post('users', [AdminController::class, 'users']);
+    Route::get('projects', [AdminController::class, 'projects'])->name('projects');
+    Route::post('projects', [AdminController::class, 'projects']);
+    Route::get('project-members/{project}', [AdminController::class, 'project_members'])->name('project_members');
+    Route::post('project-members/{project}', [AdminController::class, 'project_members']);
+    Route::get('tasks/{project}', [AdminController::class, 'project_tasks'])->name('project_tasks');
+    Route::post('tasks/{project}', [AdminController::class, 'project_tasks']);
 });
