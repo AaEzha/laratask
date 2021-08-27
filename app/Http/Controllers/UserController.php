@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectMember;
+use App\Models\ProjectTask;
 use Illuminate\Http\Request;
 use GroceryCrud\Core\GroceryCrud;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +46,10 @@ class UserController extends Controller
         $crud->setTable('project_tasks');
         $crud->setSubject('Project', 'Assigned Tasks');
         $crud->unsetOperations();
-        $crud->where(['user_id' => Auth::id()]);
+        $crud->where([
+            'user_id' => Auth::id(),
+            'status' => 'assigned'
+        ]);
         $crud->columns(['name', 'project_id', 'due_date']);
         $crud->setRelation('project_id', 'projects', 'name');
         $crud->displayAs([
@@ -53,9 +57,31 @@ class UserController extends Controller
         ]);
         $crud->unsetSearchColumns(['project_id']);
         $crud->setActionButton('Mark as complete', 'fa fa-check', function ($row) {
-            $project = ProjectMember::find($row->id);
-            return route('user.project', $project->project_id);
+            return route('user.complete', $row->id);
         }, false);
+
+        $output = $crud->render();
+
+        return $this->_showOutput($output);
+    }
+
+    public function completed()
+    {
+        $crud = $this->_getGroceryCrudEnterprise();
+
+        $crud->setTable('project_tasks');
+        $crud->setSubject('Project', 'Completed Tasks');
+        $crud->unsetOperations();
+        $crud->where([
+            'user_id' => Auth::id(),
+            'status' => 'completed'
+        ]);
+        $crud->columns(['name', 'project_id', 'due_date', 'completion_time']);
+        $crud->setRelation('project_id', 'projects', 'name');
+        $crud->displayAs([
+            'project_id' => 'Project Name'
+        ]);
+        $crud->unsetSearchColumns(['project_id']);
 
         $output = $crud->render();
 
@@ -65,7 +91,15 @@ class UserController extends Controller
     public function project(Project $project)
     {
         return view('user.project', compact('project'));
-        dd($project);
+    }
+
+    public function complete(ProjectTask $project_task)
+    {
+        $project_task->completion_time = now();
+        $project_task->status = "completed";
+        $project_task->save();
+
+        return redirect(route('user.tasks'));
     }
 
     /**

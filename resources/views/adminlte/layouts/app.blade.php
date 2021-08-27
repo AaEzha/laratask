@@ -148,7 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.projects') }}" class="nav-link">
+                                <a href="{{ route('user.completed') }}" class="nav-link">
                                     <i class="nav-icon fas fa-check"></i>
                                     <p>Completed Tasks</p>
                                 </a>

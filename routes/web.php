@@ -40,4 +40,7 @@ Route::middleware(['auth'])->name('user.')->prefix('user')->group(function () {
     Route::get('project/{project}', [UserController::class, 'project'])->name('project');
     Route::get('tasks', [UserController::class, 'tasks'])->name('tasks');
     Route::post('tasks', [UserController::class, 'tasks']);
+    Route::get('complete/{project_task}', [UserController::class, 'complete'])->name('complete');
+    Route::get('completed', [UserController::class, 'completed'])->name('completed');
+    Route::post('completed', [UserController::class, 'completed']);
 });
