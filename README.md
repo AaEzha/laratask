@@ -1,22 +1,16 @@
-# Laravel 8 + AdminLTE 3
+# Assignment - Reza Nurfachmi
 
-AdminLTE 3 for Laravel 8.
+Laravel Task Management
 
-| Laravel Version | Branch |
-|-----------------|--------|
-| 8.0             | main   |
+## Seasonings
 
-## Requirements
+- Template AdminLTE
 
-- PHP >= 7.3.0
-- BCMath PHP Extension
-- Ctype PHP Extension
-- JSON PHP Extension
-- Mbstring PHP Extension
-- OpenSSL PHP Extension
-- PDO PHP Extension
-- Tokenizer PHP Extension
-- XML PHP Extension
+[Laravel---AdminLTE-3---Fortify](https://github.com/AaEzha/Laravel---AdminLTE-3---Fortify)
+
+- GroceryCRUD Enterprise
+
+[GroceryCRUD](https://www.grocerycrud.com/)
 
 ## Installation
 
@@ -25,13 +19,13 @@ AdminLTE 3 for Laravel 8.
 - Rename or copy `.env.example` file to `.env`
 - Run `php artisan key:generate`
 - Set your database credentials in your `.env` file
-- Run migration `php artisan migrate`
+- Run migration `php artisan migrate --seed`
 - Make something awesome!
 
-## Todo Lists
-- LaravelEasyNav implementation
-- Preview screenshots
-- More pages...
+## Login
+- as Administrator : admin@gmail.com
+- as User : user@gmail.com
+- password : password
 
 ## Note
 
